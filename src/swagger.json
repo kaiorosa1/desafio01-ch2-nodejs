@@ -1,0 +1,148 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Desafio 02 Documentation",
+        "description": "This is Desafio 02 - Documentando com Swagger",
+        "version": "1.0.0",
+        "contact": {
+            "email": "kaiosrosa@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create a user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Pessoa",
+                                    "email": "pessoa@pessoa.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "User already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "List all users",
+                "description": "List all users",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "user_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Show user profile",
+                "description": "Show user info",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404":{
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Give a user admin privilegies",
+                "description": "Turn a user into an admin",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404":{
+                        "description": "Not found"
+                    }
+                }
+            }
+        }
+    }
+}
